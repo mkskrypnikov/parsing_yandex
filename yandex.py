@@ -16,8 +16,8 @@ name = today + '.csv'
 report_name = os.getcwd()+'\\data\\'+name
 cities = geo.yandex_geo
 
-def gen_url(keyword):
-    return 'https://yandex.ru/search/ads?text='+keyword.replace(' ', '%20')+'&lr=213&p='
+def gen_url(keyword,geo):
+    return 'https://yandex.ru/search/ads?text='+keyword.replace(' ', '%20')+'&lr='+geo+'&p='
 
 
 def get_html(url):
@@ -48,7 +48,7 @@ def parsing():
                 print(cities[city], '||', keyword)
                 x = 0
                 for page in pages:
-                    url = gen_url(keyword)+str(page)
+                    url = gen_url(keyword,city)+str(page)
                     soup = get_html(url)
                     content = soup.findAll('li', {'class': 'serp-item desktop-card'})
                     for ads in content:
